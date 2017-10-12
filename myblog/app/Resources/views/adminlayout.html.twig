@@ -36,7 +36,7 @@
         
         <nav class="navbar navbar-inverse navbar-fixed-top">
                 <a id="toggle_nav_btn" class="toggle-left-nav-btn inline-block mr-20 pull-left" href="javascript:void(0);"><i class="fa fa-bars"></i></a>
-                <a href="index.html"><img class="brand-img pull-left" src="{{asset('vendors/logo.svg') }}" height='30px' alt="brand"/></a>
+                <a href="{{ url('homepage') }}admin/dashboard"><img class="brand-img pull-left" src="{{asset('vendors/logo.svg') }}" height='30px' alt="brand"/></a>
                 <ul class="nav navbar-right top-nav pull-right">
                     
                     <li class="dropdown">
@@ -105,7 +105,20 @@
                         </ul>
                     </li>
 
-               
+                        <li>
+                        <a href="javascript:void(0);" data-toggle="collapse" data-target="#kppp_dr"><i class="icon-grid mr-10"></i>Resource  Section <span class="pull-right"><i class="fa fa-fw fa-angle-down"></i></span></a>
+                        <ul id="kppp_dr" class="collapse collapse-level-1">
+                            <li>
+                                <a href="{{ url('homepage') }}admin/allresources">All Resources</a>
+                            </li>
+                            <li>
+                                <a href="{{ url('homepage') }}admin/resource/createnew">Create A Resource </a>
+                            </li>
+                        </ul>
+                    </li>
+
+
+
                    </ul>
             </div>
             <div class="fixed-sidebar-right">
@@ -348,17 +361,7 @@
             </div>
  {% block body %}{% endblock %}
         
-            <footer class="footer container-fluid pl-30 pr-30">
-                <div class="row">
-                    <div class="col-sm-5">
-                        <a href="index.html" class="brand mr-30"></a>
-                        
-                    </div>
-                    <div class="col-sm-7 text-right">
-                        <p>2016 &copy; </p>
-                    </div>
-                </div>
-            </footer>
+          
             
             
         </div>
@@ -418,6 +421,61 @@
 $('body').on('click','.confirmation' , function () {
         return confirm('Are you sure?');
     });
+
+$('#typeofpath').on('change',function(){
+var rok = $(this).val();
+if( rok == 'dropbox' )
+{
+$('.catype').css('display','block');
+    
+}
+else{
+$('.catype').css('display','none');
+}
+});
+
+
+
+$(document).ready(function() {
+$("#topcat").change(function () {
+var option = $('option:selected', this).val();
+      $("#unlockcat")
+          .find("option")
+          .show()
+          .not("option[toparent~='" + option + "']").hide();
+     
+   $("#unlockcat").val(
+      $("#unlockcat").find("option:visible:first").val()); 
+  }).change();
+
+
+$("#topcatedit").on('change', function () {
+
+var option = $('option:selected', this).val();
+$("#unlockcatedit")
+          .find("option")
+          .show()
+          .not("option[toparent~='" + option + "']").hide();
+
+    $("#unlockcatedit").val(
+      $("#unlockcatedit").find("option:visible:first").val());       
+});
+});
+
+$('#typeofpath').on('change',function(){
+var resourcetype = $(this).val();
+if(resourcetype == 'dropbox'){
+
+$('#resourcetype').attr('required','required');
+}else{
+
+$('#resourcetype').removeAttr('required');
+
+}
+
+
+});
+
     </script>
 <style>
 .footer{

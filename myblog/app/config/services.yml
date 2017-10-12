@@ -37,3 +37,6 @@ services:
     authentication.handler.login_success_handler:
         class:  AppBundle\Security\LoginSuccessHandler
         arguments:  ['@router', '@security.authorization_checker']
+    
+    
+       

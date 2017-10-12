@@ -139,7 +139,7 @@ $(document).ready(function(){
 });
 /*****Ready function end*****/
 
-/*****Load function start*****/
+/*****Load function start***
 $(window).load(function(){
 	window.setTimeout(function(){
 		$.toast({
@@ -153,7 +153,7 @@ $(window).load(function(){
 		});
 	}, 3000);
 });
-/*****Load function* end*****/
+**Load function* end*****/
 
 var sparklineLogin = function() { 
 	if( $('#sparkline_1').length > 0 ){

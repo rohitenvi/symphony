@@ -22,7 +22,7 @@ class NewsPostsController extends Controller
     {
         $todos = $this->getDoctrine()
                 ->getRepository('AppBundle:News')
-                ->findAll();
+                ->findBy([], ['id' => 'DESC']);
         
 
         return $this->render('/admin/news/allnews.html.twig', array(
@@ -43,7 +43,7 @@ class NewsPostsController extends Controller
                 ->add('name', TextType::class, array('attr' => $atrributes))
                 ->add('author', TextType::class, array('attr' => $atrributes))
                  ->add('newsContent', CKEditorType::class, array('attr' => array('style' => 'margin-bottom:15px')))
-                ->add('imagePath', FileType::class, array('attr' => array('style' => 'margin-bottom:15px','class'=>'dropimage')))
+                ->add('imagePath', FileType::class, array('attr' => array('style' => 'margin-bottom:15px','class'=>'dropimage'),'required'=>false))
                 ->add('imageCredit', TextType::class, array('attr' => array('style' => 'margin-bottom:15px')))
                 ->add('save', SubmitType::class, array('label' => 'Create News', 'attr' => array('class' => 'btn btn-primary')))
                 ->getForm();
@@ -53,9 +53,10 @@ class NewsPostsController extends Controller
                if($form->isSubmitted() && $form->isValid()) {
             $todo->setName($form['name']->getData());
             $todo->setAuthor($form['author']->getData());
+            $todo->setAdded(new \DateTime('now'));
             $todo->setLastModified(new \DateTime('now'));
             $todo->setImageCredit($form['imageCredit']->getData());
-            $todo->setNewsContent($form['newsContent']->getData());
+            $todo->setNewsContent(str_replace('"','\'',$form['newsContent']->getData()));
             $file = $todo->getImagePath();
             
             if($file != '' && !empty($file))
@@ -111,7 +112,7 @@ class NewsPostsController extends Controller
                 ->add('name', TextType::class, array('attr' => $atrributes))
                 ->add('author', TextType::class, array('attr' => $atrributes))
                 ->add('newsContent', CKEditorType::class, array('attr' => array('style' => 'margin-bottom:15px')))
-                ->add('imagePath', FileType::class, array('data_class' => null , 'attr' => array('style' => 'margin-bottom:15px')))
+                ->add('imagePath', FileType::class, array('data_class' => null , 'attr' => array('style' => 'margin-bottom:15px') ,'required' => false))
                 ->add('imageCredit', TextType::class, array('attr' => array('style' => 'margin-bottom:15px')))
                 ->add('save', SubmitType::class, array('label' => 'Update News', 'attr' => array('class' => 'btn btn-primary')))
                 ->getForm();
@@ -123,7 +124,7 @@ class NewsPostsController extends Controller
             $todo->setAuthor($form['author']->getData());
             $todo->setLastModified(new \DateTime('now'));
             $todo->setImageCredit($form['imageCredit']->getData());
-            $todo->setNewsContent($form['newsContent']->getData());
+        $todo->setNewsContent(str_replace('"','\'',$form['newsContent']->getData()));
             $file = $todo->getImagePath();
             
             if($file != '' && !empty($file))

@@ -5,7 +5,7 @@
 <div class="panel panel-default card-view">
 <div class="panel-heading">
 <div class="pull-left">
-<h6 class="panel-title txt-dark">Create  A  News</h6>
+<h6 class="panel-title txt-dark">Create  A  Category</h6>
 </div>
 <div class="clearfix"></div>
 </div>
@@ -14,11 +14,24 @@
 <div class="row">
 <div class="col-md-12">
 <div class="form-wrap">
-{{ form_start(form) }}
- {{ form_errors(form) }}
+ <form action="{{ url('homepage') }}admin/cat/savenew" method="post" enctype="multipart/form-data">
+  <div class="form-group">
+    <label for="nameofresource">Title of Category:</label>
+    <input type="text" class="form-control" id="nameofcatgory" name="categoryname" required>
+  </div>
 
-    {{ form_widget(form) }}
-    {{ form_end(form) }}
+  <div class="form-group">
+  <label for="typeofpath">Path Type:</label>
+  <select class="form-control" name="parentid" id="catsparent" required>
+
+  {% for key,value in catdatas %}
+  <option value="{{ key }}">{{value}}</option>
+  {%endfor%}
+   </select>
+  </div> 
+
+<button type="submit" class="btn btn-default">Submit</button>
+</form> 
 </div>
 </div></div>
 </div>

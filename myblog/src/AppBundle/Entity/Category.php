@@ -3,7 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+//use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 /**
  * Category
  *
@@ -18,13 +18,14 @@ class Category
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
      */
-    private $id;
+    public $id;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
 
@@ -33,7 +34,7 @@ class Category
      *
      * @ORM\Column(name="parentId", type="integer", nullable=true)
      */
-    private $parentId;
+    public $parentId;
 
     /**
      * @var int
@@ -56,6 +57,19 @@ class Category
      */
     private $updatedTime;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="topcategory", type="integer", nullable=true)
+     */
+    public $topcategory;
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="deepest", type="smallint")
+     */
+    private $deepest;
 
     /**
      * Get id
@@ -193,8 +207,55 @@ class Category
  public function __toString() {
    
     return (string) $this->id;
-}
+    }
  
 
+ /**
+     * Set topcategory
+     *
+     * @param integer $topcategory
+     *
+     * @return Category
+     */
+    public function setTopcategory($topcategory)
+    {
+        $this->topcategory = $topcategory;
+
+        return $this;
+    }
+
+    /**
+     * Get topcategory
+     *
+     * @return int
+     */
+    public function getTopcategory()
+    {
+        return $this->topcategory;
+    }
+
+    /**
+     * Set deepest
+     *
+     * @param integer $deepest
+     *
+     * @return Category
+     */
+    public function setDeepest($deepest)
+    {
+        $this->deepest = $deepest;
+
+        return $this;
+    }
+
+    /**
+     * Get deepest
+     *
+     * @return int
+     */
+    public function getDeepest()
+    {
+        return $this->deepest;
+    }
 }
 
