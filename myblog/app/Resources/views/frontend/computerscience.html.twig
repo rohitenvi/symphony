@@ -19,147 +19,138 @@
         <div class="">
         <ul class="nav nav-tabs cs-tab">
             <li>
-        <a href="#1" data-toggle="tab">Project</a>
+        <a href="{{ path('allresources') }}" >Project</a>
             </li>
-            <li><a href="#2" data-toggle="tab">Behavioural Science</a>
+            <li><a href="{{ path('behaviourscience') }}" >Behavioural Science</a>
             </li>
                <li class="active" >
-        <a href="#3" data-toggle="tab">Computer Science</a>
+        <a href="{{ path('computerscience') }}" >Computer Science</a>
             </li>
-            <li><a href="#4" data-toggle="tab">System Architecture</a>
+            <li><a href="{{ path('systemarchitect') }}">System Architecture</a>
             </li>
         </ul>
-
-         <!--- MObile view -->
-
         <div class="">
-        <div class="col-sm-12 cs-tab">
-        <span class="d-hd">Department</span>
-        <div class="select-box-department">
-                <select>
-                    <option > Project</option>
-                    <option> Behavioural Science</option>
-                    <option>Computer Science</option>
-                    <option>System Architecture</option>
+        <div class="col-sm-12 col-xs-12 col-md-12 cs-tab">
+            <span class="d-hd">Department</span>
+         <div class="select-box-department">
+                <select class="pagechanger">
+                    <option value="1" urlid ="{{ path('allresources') }}" > Project</option>
+                    <option value="2" urlid="{{ path('behaviourscience') }}"  > Behavioural Science</option>
+                    <option value="3" urlid="{{ path('computerscience') }}">Computer Science</option>
+                    <option value="4" urlid="{{ path('systemarchitect') }}" >System Architecture</option>
                 </select>
         </div>
-        </div>
-        </div>
-
-
+    </div>
+</div>
             <div class="tab-content ">
-
-            <!-- MObile view -->
                 <div class="container">
                 <div class="row">
-                <div class="col-md-12 col-sm-12 col-xs-12 dropdown">
-                <button id="dp">Filter Resources (3 applied)</button>
+                    <div class="col-md-12 col-sm-12 col-xs-12 dropdown">
+                        <button id="dp">Filter Resources (3 applied)</button>
+                    </div>
                 </div>
-                </div>
-                </div>
+            </div>
               
                 <div class="tab-pane active" id="3">
-                    
+                    <div class="">
+                        
+                        <div class="">
+                            <div class=" pad-35 sh" >
+                                <div class="container">
+                                <div class="row">
+                            <div class="col-md-4 col-sm-12 col-xs-12 t-center">
+                               <div class=" text-right inline-div"> <span>Category</span></div>
 
-                <div class="">
-                <div>
+                                <div class="select-box">
+                                    <select class="selectpicker" id ="catnames">
+                                         <option value="">-Select-</option>
+                                        {% for cats in allcomputerscats %}
+                                    <option value="{{cats.id}}"> {{cats.name}}</option>
+                                       {% endfor %}
+                                    </select>
+                            </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12 col-xs-12 t-center">
+                                <div class=" text-right inline-div"><span>Resource</span></div>
 
-                <!---  Filter Start -->
+                                <div class="select-box text-cnetr">
+                                    <select class="selectpicker" id= "resourceid">
+                                        <option value="" >-Select-</option>
+                                {% for allresourcetype in allresourcetypes%}
+                                   <option value="{{allresourcetype.id}}">{{allresourcetype.name}}</option>
+                                       {% endfor%}
+                                    </select>
+                            </div>
+                            </div>
+                            <div class="col-md-4 col-sm-12 col-xs-12 t-center">
+                                <div class=" text-right inline-div"><span>sort by</span></div>
 
-                <div class=" pad-35 sh" >
-                <div class="container">
-                <div class="row">
-                
-
-                <div class="col-md-4 col-sm-12 col-xs-12 t-center">
-                <div class=" text-right inline-div"> <span>Category</span></div>
-                <div class="select-box">
-                <select class="selectpicker">
-               {% for cats in allcomputerscats %}
-                <option value="">-Select-</option>
-                <option value="{{cats.id}}"> {{cats.name}}</option>
-                {% endfor %}
+                                <div class="select-box-2 ">
+                                    <select class="selectpicker" id="datesorter">
+                <option value="asc" selected="selected" > Date (Asc To Desc)</option>
+                <option value="desc" selected="selected"> Date (Desc To Asc)</option>
                 </select>
-                </div>
-                </div>
-                            
-
-
-                <div class="col-md-4 col-sm-12 col-xs-12 t-center">
-                <div class=" text-right inline-div"><span>ResourceType</span></div>
-                <div class="select-box text-cnetr">
-                <select class="selectpicker">
-                <option value="">-Select-</option>
-                {% for allresourcetype in allresourcetypes%}
-                <option value="{{allresourcetype.id}}">{{allresourcetype.name}}</option>
-                {% endfor%}
-                </select>
-                </div>
-                </div>
-
-                <div class="col-md-4 col-sm-12 col-xs-12 t-center">
-                <div class=" text-right inline-div"><span>sort by</span></div>
-                <div class="select-box-2 ">
-                <select class="selectpicker">
-                <option> Date (Asc To Desc)</option>
-                <option> Date (Desc To Asc)</option>
-                </select>
-                </div>
-                </div>
-
-                </div>
-                </div>
-                </div>
-
-             <!--  filter  ends -->
-
-        <div class="clearfix"></div>
-       
-           <!--- Tab Body Start -->
+                            </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                            <div class="clearfix"></div>
+                                
+                                
+                                       <!--- Tab Body Start -->
  
-           <div class="">
+           <div class="sortedata">
             
-            <div class="panel-body">
+             {% for csresource in  csresources %}
+
+
+            <div class="panel-body recoon" data-id='{{ csresource.added_datetime |date("m/d/Y")}}'  cat-id='{{ csresource.category }}' res-id= '{{ csresource.resource_type }}'>
             <div class="container">
             <span class="text-download">
-            <p>17/07/2017</p>
-            <span>  A link to some sort of resource like powerpoint slide or paper
-            <a class="link-text">PDF</a></span>
-            <a href="#" class="api-btn">API Documentation</a>
+            <p>{{ csresource.added_datetime |date("d/m/Y")}}</p>
+            <span> {{csresource.title}}
+
+            {%  if csresource.path_type == 'dropbox' %}
+           
+            <a class="link-text">
+           {% if csresource.resource_type != 0  %}
+             {% for resourcename in  allresourcetypes %}
+                       {%if csresource.resource_type == resourcename.id %}
+                         {{ resourcename.name }}
+                         {%endif%}
+              {% endfor %}
+            {% endif %}      
+            </a>
+            {%  elseif  csresource.path_type == 'website' %}
+             <a class="link-text"> Website</a>
+             {%  elseif  csresource.path_type == 'tool' %}
+                 <a class="link-text">HBCP Tool</a>
+             {%endif%}
             </span>
-            <span class="btn-download"><a href="#">Download</a></span> </div>
+            <a href="#" class="api-btn">{{csresource.name}}</a>
+            </span>
+            <span class="btn-download">
+            {%  if csresource.path_type == 'dropbox' %}
+            <a href="{{ path('homepage') }}resources/{{csresource.name|slugify }}/{{csresource.id}}" target="_blank">Download</a>
+            {% elseif  csresource.path_type == 'tool' %}
+            <a href="{{csresource.path}}" target="_blank">Open Tool</a>
+        {% elseif  csresource.path_type == 'website' %}
+            <a href="{{csresource.path}}" target="_blank">View</a>
+            {% endif%}
+            </span>
             </div>
-
-            <div class="panel-body light">
-            <div class="container">
-            <span class="text-download">
-            <p>1/07/2017</p>
-            <span>  Matrix Tool or example of another link Website<a class="link-text">HBCP Tool</a></span>
-            <a href="#" class="api-btn">Computery category</a></span><span class="btn-download"><a href="#">Open Tool</a></span> </div>
-           </div>
-
-            <div class="panel-body ">
-            <div class="container">
-            <span class="text-download">
-            <p>17/07/2017</p><span>  Matrix Tool or example of another link Website<a class="link-text">website</a></span>
-            <a href="#" class="api-btn">Miscellaneous</a></span>
-            <span class="btn-download"><a href="#">View</a></span> </div>
-           </div>
+            </div>
+           
+           {% endfor %} 
+      
         
           </div>
-
-          </div>   <!--  65 -->
-
-
-        </div>    <!--  64 -->
-
-
-        </div>
-      </div> <!--   50 -->
-
-
-
-    </div> <!--  19 -->
-    </div>  <!--  18 -->
+                            
+                            
+        </div></div></div>
+  </div>
+    </div>
+    </div>
 </section>
 {% endblock %}

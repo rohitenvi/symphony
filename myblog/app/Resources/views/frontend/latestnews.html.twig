@@ -26,7 +26,7 @@
                      {% if news.imagePath is not empty %}
                     <img src="{{ url('homepage') }}uploads/newsimages/{{ news.imagePath }}" alt="image">
                     {% else %}
-                    <img src="{{ url('homepage') }}uploads/newsimages/nonewsimage.png" alt="image">
+                    <img src="{{ asset('vendors/frontend/images/news-default.svg') }}" alt="image">
                     {%endif%}
                 
             </div>

@@ -18,14 +18,14 @@
         <div class="row">
             <div class="col-md-3 col-sm-4 text-center diagram-visaul">
                     <div class="icon">
-                    <img src="{{ asset('vendors/frontend/images/i-icon.png') }}" alt="team-icon">
+                    <img src="{{ asset('vendors/frontend/images/bsicon-info.svg') }}" alt="team-icon">
                 </div>
                 <p>
                     This is an more in-depth version 
                     of the behavioural science diagram 
                     showing the connections.
                 </p>
-                <a href="" class="btn res-btn">< Back to Resources</a>
+                <a href="{{app.request.headers.get('referer')}}" class="btn res-btn">< Back to Resources</a>
             </div>
             <div class="col-md-6 col-sm-4 text-center outcome-img">
                 <img src="{{ asset('vendors/frontend/images/bs-diagramdetailed.png') }}" alt="Homegraphic Behavioural Science">
@@ -34,7 +34,7 @@
               <div class="col-md-3 col-sm-4 text-center explain-button">
                  <p>View resources via the 
                     interactive Diagram </p>
-                  <a href="" class="btn"><img src="{{ asset('vendors/frontend/images/arrow-back-white.svg') }}">Back to Resources </a>
+                  <a href="{{app.request.headers.get('referer')}}" class="btn"><img src="{{ asset('vendors/frontend/images/arrow-back-white.svg') }}">Back to Resources </a>
             </div>
         </div>
     </div>
@@ -67,7 +67,7 @@
                     <div class=" text-center resource-button">
                          <p>View resources via the 
                             interactive Diagram </p>
-                          <a href="" class="btn"><img src="{{ asset('vendors/frontend/images/arrow-back-white.svg') }}"> Back to Resources </a>
+                <a href="{{app.request.headers.get('referer')}}" class="btn"><img src="{{ asset('vendors/frontend/images/arrow-back-white.svg') }}"> Back to Resources </a>
                     </div>
             </div>
 

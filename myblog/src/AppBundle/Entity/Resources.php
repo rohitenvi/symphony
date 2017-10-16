@@ -316,7 +316,6 @@ class Resources
         return $this->resourceInformation;
     }
 
-
    
 }
 

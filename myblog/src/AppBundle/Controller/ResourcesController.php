@@ -19,7 +19,7 @@ class ResourcesController extends Controller
     {
         $allresourcedata = $this->getDoctrine()
                 ->getRepository('AppBundle:Resources')
-                ->findAll();
+               ->findBy([], ['id' => 'DESC']);
    
               
           $allcats = array();
@@ -369,8 +369,8 @@ class ResourcesController extends Controller
      curl_setopt($ch, CURLOPT_URL, "https://api.dropboxapi.com/2/sharing/get_shared_link_metadata");
       curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(array('url'=> $fileurl )));
       $result = curl_exec($ch);
-     $array = json_decode(trim($result), TRUE);
-     curl_close($ch);
+    $array = json_decode(trim($result), TRUE);
+    curl_close($ch);
      return $array;
     }
   

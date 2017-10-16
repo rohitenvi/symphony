@@ -15,8 +15,14 @@
 .behaviour-diagram{
 	padding:60px 0 20px;
 
-	.btn{background-color: #377bbb; color:#fff; padding: 10px 20px; position:relative; border:none;     box-shadow: 0px 5px 0px 0px #01459b;
+	.btn{background-color: #377bbb; color:#fff; padding: 10px 20px; position:relative; border:none;     box-shadow: 0px 5px 0px 0px #01459b;transition:0.5s all;
+	&:hover {
+			    background: #8bc3f3;
+			}
 	    &:before{content: ""; position: absolute; background-color:#01459B; bottom:-5px; left:0; right:0; top:0; z-index: -1; border-radius:4px}
+
+
+
 	    img {
 		    margin-right: 3px;
 		}
@@ -44,7 +50,10 @@
 		}
 	}
 	.diagram-visaul{
-			.res-btn{background-color: #377bbb; color:#fff; padding: 10px 20px; position:relative; border:none; min-width: 160px;
+			.res-btn{background-color: #377bbb; color:#fff; padding: 10px 20px; position:relative; border:none; min-width: 160px;transition:0.5s all;
+	&:hover {
+			    background: #8bc3f3;
+			}
 					    margin: 10px 0 50px; display:none;
 				    &:before{content: ""; position: absolute; background-color:#01459B; bottom:-5px; left:0; right:0; top:0; z-index: -1; border-radius:4px}
 				}

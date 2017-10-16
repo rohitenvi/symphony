@@ -46,8 +46,8 @@
             </div><!-- /End Navbar Header -->
             <div class="collapse navbar-collapse" id="navbar-collapse">
                 <!-- Menu Links -->
-                   <ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a href="{{ path('behaviourscience') }}">Behavioural Science</a></li>
+                   <ul class="nav navbar-nav navbar-right hbcpmenu">
+                    <li><a href="{{ path('behaviourscience') }}">Behavioural Science</a></li>
                     <li><a href="{{ path('computerscience') }}">Computer Science</a></li>
                     <li><a href="{{ path('systemarchitect') }}">System Architecture</a></li>
                     <li><a href="{{ path('allresources') }}">All Resources</a></li>
@@ -66,28 +66,29 @@
                 </div>
                 <h2>Contact Us</h2>
                 <p>We use range of social and media networks to keep our stakeholfers, investigators and those interested in the project up-to-date with developments. You can contact us through any of these networks and also sign up to our mailing list.</p>
-                <a href="" class="btn">Contact</a>
+                <a href="{{ path('contactus') }}" class="btn">Contact</a>
             </div>
         </div>
     </div>
 </section>
 <footer class="footer">
     <ul class="text-center footer-links list-inline">
-        <li><a href="#">Grant Holders & Project Team</a></li>
-        <li><a href="#">Latest News</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="{{ path('projecteam') }}">Grant Holders & Project Team</a></li>
+        <li><a href="{{ path('latestnews') }}">Latest News</a></li>
+        <li><a href="{{ path('contactus') }}">Contact</a></li>
     </ul>
     <div class="container-fluid bottom-footer">
         <div class="row">
             <div class="col-sm-4 col-xs-5">2017. Privacy Policy</div>
-            <div class="col-sm-4 col-xs-2 text-center"><a href=""><img src="images/footer-twitter.svg" alt="footer-twitter"></a></div>
+            <div class="col-sm-4 col-xs-2 text-center"><a href=""><img src="{{ asset('vendors/frontend/images/footer-twitter.svg') }}" alt="footer-twitter"></a></div>
             <div class="col-sm-4 col-xs-5 text-right">Site by British Websites</div>
         </div>
     </div>
 </footer>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+ <script src="{{asset('vendors/bower_components/jquery/dist/jquery.min.js') }}"></script>
+
 <!-- Latest compiled JavaScript -->
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="{{asset('vendors/bower_components/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <script src="{{ asset('vendors/frontend/js/bootstrap-select.js') }}"></script>
 <script type="text/javascript">
     $(document).ready(function(){
@@ -100,6 +101,141 @@
   style: 'btn-info',
   size: 4
 });
+</script>
+<script>
+$('#datesorter').change(function() {
+
+var order = $(this).val();
+var sorted = $('.panel-body').sort(function(a, b) {
+
+
+var a = new Date($(a).attr('data-id').split('/').join(' '));
+var b = new Date($(b).attr('data-id').split('/').join(' '));
+return order == 'desc' ?  b - a : a - b;
+});
+
+$('.sortedata').html(sorted);
+});
+
+
+
+$('#catnames').on('change',function(){
+
+ $('.recoon').hide();
+var catid = $(this).val();
+var resid = $('#resourceid').val();
+
+ if(catid == '' && resid == '')
+ {
+ $('.recoon').show();
+
+ }
+
+
+$('.recoon').each(function(){
+
+var evcat = $(this).attr('cat-id');
+var evres = $(this).attr('res-id');
+
+
+if(catid == evcat  && resid == '' )
+{
+$(this).css('display','block');
+
+}
+
+if(catid == evcat &&  resid == evres)
+ {
+   $(this).css('display','block');
+ }   
+
+
+if(catid == '' &&  evres == resid )
+{
+$(this).css('display','block');
+}
+});
+});
+
+
+
+$('#resourceid').on('change',function(){
+
+ $('.recoon').hide();
+var resid = $(this).val();
+var catid = $('#catnames').val();
+
+ if(catid == '' && resid == '')
+ {
+ $('.recoon').show();
+
+ }
+
+$('.recoon').each(function(){
+
+var evcat = $(this).attr('cat-id');
+var evres = $(this).attr('res-id');
+
+
+if(catid == evcat  && resid == '' )
+{
+$(this).css('display','block');
+
+}
+
+if(catid == evcat &&  resid == evres)
+ {
+   $(this).css('display','block');
+ }   
+
+
+if(catid == '' &&  evres == resid )
+{
+$(this).css('display','block');
+}
+
+
+});
+
+});
+
+
+$(function(){
+    var current_page_URL = location.href;
+
+        $( ".hbcpmenu a" ).each(function() {
+
+            if ($(this).attr("href") !== "#") {
+
+                var target_URL = $(this).prop("href");
+
+                    if (target_URL == current_page_URL) {
+                         
+                        $('nav a').parents('li, ul').removeClass('active');
+                        $(this).parent('li').addClass('active');
+
+                        return false;
+                    }
+            }
+        }); }); 
+
+        $('.overlay-1').click(function(){
+$('.overlay-1').removeClass('overlay-inline');
+$(this).addClass('overlay-inline');
+
+        });
+
+function copyToClipboard(elementId) {
+var aux = document.createElement("input");
+aux.setAttribute("value", document.getElementById(elementId).value);
+  document.body.appendChild(aux);
+  aux.select();
+  document.execCommand("copy");
+  document.body.removeChild(aux);
+
+}
+
+
 </script>
 </body>
 

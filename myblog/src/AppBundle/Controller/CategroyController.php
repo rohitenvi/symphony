@@ -15,90 +15,7 @@ use Doctrine\ORM\EntityRepository;
 class CategroyController extends Controller
 {
         
-     public  function getBreadcrumbs($cat) {
-      $path = "";
-       $div = " >> ";
-          while ($cat != 0) {
-
-              $em = $this->getDoctrine()->getManager();
-
-              $RAW_QUERY = " SELECT * FROM category where  id=" .$cat . " ";
-        
-               $statement = $em->getConnection()->prepare($RAW_QUERY);
-               $statement->execute();
-
-               $row = $statement->fetchall();
-               $row = $row [0];
-
-              if ($row) {
-               $path = $div.$row['name'].$path;
-              $cat = $row['parentId'];
-       
-             }
-       }
-
-
-      if ($path != "") {
-        $path = substr($path,strlen($div)); 
-       }
-         
-        return $path;
-      } 
      
-
-    public  function getBreadcrumbsonfront($cat) {
-       $path = "";
-        $div = " >> ";
-          while ($cat != 0) {
-              $em = $this->getDoctrine()->getManager(); 
-              $RAW_QUERY = " SELECT * FROM category where  id=" .$cat . " ";
-               $statement = $em->getConnection()->prepare($RAW_QUERY);
-               $statement->execute();
-               $row = $statement->fetchall();
-               $row = $row [0];
-               if ($row) {
-               $path = $div.$row['name'].$path;
-              $cat = $row['parentId'];
-              if($cat == 1 || $cat == 2 || $cat == 3 || $cat == 4)
-                {
-                      break;
-                }}
-               } /**end while **/
-
-            if ($path != "") {
-                $path = substr($path,strlen($div)); 
-                }
-                return $path;
-      }
-
-     public  function getCatparentID($cat) {
-
-            while ($cat != 0) {
-              $em = $this->getDoctrine()->getManager(); 
-              $RAW_QUERY = " SELECT * FROM category where  id=" .$cat . " ";
-               $statement = $em->getConnection()->prepare($RAW_QUERY);
-               $statement->execute();
-               $row = $statement->fetchall();
-               $row = $row [0];
-               if ($row) {
-              $cat = $row['parentId'];
-              if($cat == 1 || $cat == 2 || $cat == 3 || $cat == 4)
-                {
-                      break;
-                }}
-               }
-              
-               return $cat;
-          }
-
-     public function showTopcatAction($categoryId)
-      {
-        $category = $this->getDoctrine()
-                     ->getRepository(Category::class)
-                     ->find($categoryId);
-      $catname = $category->getName();
-           return $catname;
-      }
 
     /**
      * @Route("/admin/cats/all", name="cats_list")
@@ -108,7 +25,7 @@ class CategroyController extends Controller
     { 
         $allresources = $this->getDoctrine()
                 ->getRepository('AppBundle:Category')
-                ->findBy(array('fixed'=> '0') );
+                ->findBy(array('fixed'=> '0'),array('id' => 'DESC') );
 
             $errors = array_filter($allresources);
         
@@ -193,6 +110,8 @@ class CategroyController extends Controller
            $newcat = new \AppBundle\Entity\Category();
            $newcat ->setName($_REQUEST['categoryname']);
            $newcat ->setParentId($_REQUEST['parentid']);
+          $toparentcat =$this->getCatTopparentID($_REQUEST['parentid']);
+           $newcat->setTopcategory($toparentcat);
            $newcat ->setFixed(0);
            $newcat ->setCreatedTime(new \DateTime('now'));
            $newcat ->setUpdatedTime(new \DateTime('now'));
@@ -293,6 +212,9 @@ class CategroyController extends Controller
            
            $formsave ->setName($_REQUEST['categoryname']);
           $formsave ->setParentId($_REQUEST['parentid']);
+         $toparentcat =$this->getCatTopparentID($_REQUEST['parentid']);
+            $formsave ->setTopcategory($toparentcat);
+
            $formsave->setUpdatedTime(new \DateTime('now'));
              $em = $this->getDoctrine()->getManager();
              $em->persist($formsave);
@@ -367,6 +289,104 @@ class CategroyController extends Controller
        
         return $this->redirectToRoute('cats_list');
     }
+
+    public  function getBreadcrumbs($cat) {
+      $path = "";
+       $div = " >> ";
+          while ($cat != 0) {
+             $em = $this->getDoctrine()->getManager();
+              $RAW_QUERY = " SELECT * FROM category where  id=" .$cat . " ";
+               $statement = $em->getConnection()->prepare($RAW_QUERY);
+               $statement->execute();
+               $row = $statement->fetchall();
+               $row = $row [0];
+               
+               if ($row) {
+               $path = $div.$row['name'].$path;
+               $cat = $row['parentId'];
+                         }
+                  }
+               if ($path != "") {
+       
+                $path = substr($path,strlen($div)); 
+                                 }
+                  return $path;
+                  } 
+     
+
+    public  function getBreadcrumbsonfront($cat) {
+       $path = "";
+        $div = " >> ";
+          while ($cat != 0) {
+              $em = $this->getDoctrine()->getManager(); 
+              $RAW_QUERY = " SELECT * FROM category where  id=" .$cat . " ";
+               $statement = $em->getConnection()->prepare($RAW_QUERY);
+               $statement->execute();
+               $row = $statement->fetchall();
+               $row = $row [0];
+               if ($row) {
+               $path = $div.$row['name'].$path;
+              $cat = $row['parentId'];
+              if($cat == 1 || $cat == 2 || $cat == 3 || $cat == 4)
+                { break;
+                }}
+               } /**end while **/
+
+            if ($path != "") {
+                $path = substr($path,strlen($div)); 
+                }
+                return $path;
+      }
+
+     public  function getCatparentID($cat) {
+        while ($cat != 0) {
+              $em = $this->getDoctrine()->getManager(); 
+              $RAW_QUERY = " SELECT * FROM category where  id=" .$cat . " ";
+               $statement = $em->getConnection()->prepare($RAW_QUERY);
+               $statement->execute();
+               $row = $statement->fetchall();
+               $row = $row [0];
+               if ($row) {
+              $cat = $row['parentId'];
+              if($cat == 1 || $cat == 2 || $cat == 3 || $cat == 4)
+                {
+                      break;
+                }}
+               }
+              return $cat;
+          }
+
+
+        public  function getCatTopparentID($cat) {
+        while ($cat != 0) {
+              $em = $this->getDoctrine()->getManager(); 
+              $RAW_QUERY = " SELECT * FROM category where  id=" .$cat . " ";
+               $statement = $em->getConnection()->prepare($RAW_QUERY);
+               $statement->execute();
+               $row = $statement->fetchall();
+               $row = $row [0];
+               if ($row) {
+              $cat = $row['parentId'];
+
+              if($cat == 0 )
+                {
+                    $cat = $row['id'];
+                   break;
+                }
+
+             }
+            }
+              return $cat;
+          }
+  
+     public function showTopcatAction($categoryId)
+      {
+        $category = $this->getDoctrine()
+                     ->getRepository(Category::class)
+                     ->find($categoryId);
+      $catname = $category->getName();
+           return $catname;
+      }
     
 }
 
