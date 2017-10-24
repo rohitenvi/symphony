@@ -25,7 +25,11 @@
                 </p>
                 <a href="{{ path('behaviourdiagram') }}" class="btn res-btn">Explain Diagram</a>
             </div>
-            <div class="col-md-6 col-sm-6 col-xs-12 text-center outcome-img triangle-part" >
+
+
+          {% embed "/frontend/behaviourtriangle.html.twig" %}
+          {% endembed %}
+           <!--  <div class="col-md-6 col-sm-6 col-xs-12 text-center outcome-img triangle-part" >
             <div class="">
             <div class="">
                 <div class="shadow-box">
@@ -67,10 +71,10 @@
             </div>
 
         </div>
-        <!-- <p class="arrow-up">
+        <p class="arrow-up">
                     Select a section of the Diagram for an explanation and to show associated resources
-                </p> -->
-            </div>
+                </p> 
+            </div> -->
               <div class="col-md-3 col-sm-3 text-center explain-button">
                  <p>What to know more about this diagram?</p>
                   <a href="{{ path('behaviourdiagram') }}" class="btn"><img src="{{ asset('bundles/app/images/arrow-back-white.svg') }}">Explain Diagram</a>

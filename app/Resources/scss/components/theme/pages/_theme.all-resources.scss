@@ -1,5 +1,7 @@
 .slider-8 {
-  background-image: url(../images/bg-allresources-header.png) !important;
-  background-position: 100%;
-  background-size: cover;
+	@extend .slider;
+
+    background-image: url(../images/bg-allresources-header.png) !important;
+    background-position: 100%;
+    background-size: cover;
 }

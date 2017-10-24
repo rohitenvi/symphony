@@ -82,7 +82,8 @@
 
       @if length($item) > 1 and $recursive {
         $result: append($result, jeet-reverse($item, $recursive));
-      } @else {
+      }
+      @else {
         $result: append($result, $item);
       }
     }
@@ -127,6 +128,11 @@
   }
 }
 
+
+
+
+
+
 /**
  * Style an element as a column with a gutter.
  * @param {number} [$ratios=1] - A width relative to its container as a fraction.
@@ -163,8 +169,7 @@
   margin: {
     #{$side}: $margin-l * 1%;
     #{$opposite-side}: $margin-r * 1%;
-  }
-;
+  };
 
   @if $uncycle != 0 {
     &:nth-child(#{$uncycle}n) {
@@ -263,8 +268,7 @@
   margin: {
     #{$side}: $margin-l * 1%;
     #{$opposite-side}: $margin-r * 1%;
-  }
-;
+  };
 
   @if $cycle != 0 {
     &:nth-child(#{$cycle}n) {
@@ -356,14 +360,12 @@
   display: block;
   margin: {
     right: auto;
-    left: auto;
-  }
-;
+    left:  auto;
+  };
   padding: {
-    left: $pad;
+    left:  $pad;
     right: $pad;
-  }
-;
+  };
 }
 
 /**
@@ -391,10 +393,9 @@
   float: none;
   width: 100%;
   margin: {
-    left: auto;
+    left:  auto;
     right: auto;
-  }
-;
+  };
 
   &:first-child {
     margin-#{$side}: auto;
@@ -406,7 +407,7 @@
 
   @if $pad != 0 {
     padding: {
-      left: $pad;
+      left:  $pad;
       right: $pad;
     }
   }
@@ -434,10 +435,9 @@
   clear: none;
   width: auto;
   margin: {
-    left: 0;
+    left:  0;
     right: 0;
-  }
-;
+  };
 
   &:first-child {
     margin-#{$side}: 0;
